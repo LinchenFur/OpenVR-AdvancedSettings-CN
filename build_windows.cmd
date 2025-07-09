@@ -42,3 +42,7 @@ IF ERRORLEVEL 1 EXIT /B %exit_code_failure_build_apps%
 CD %original_dir%
 
 ECHO %top_level_activity%: MASTER DONE.
+
+
+
+ping 127.0.0.1

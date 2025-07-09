@@ -8,7 +8,7 @@ import "../common"
 import "change_orientation"
 
 MyStackViewPage {
-    headerText: "Chaperone Settings"
+    headerText: "边界设置"
 
     MyDialogOkPopup {
         id: chaperoneMessageDialog
@@ -22,8 +22,8 @@ MyStackViewPage {
     MyDialogOkCancelPopup {
         id: chaperoneDeleteProfileDialog
         property int profileIndex: -1
-        dialogTitle: "Delete Profile"
-        dialogText: "Do you really want to delete this profile?"
+        dialogTitle: "删除配置"
+        dialogText: "确定要删除此配置吗？"
         onClosed: {
             if (okClicked) {
                 ChaperoneTabController.deleteChaperoneProfile(profileIndex)
@@ -33,7 +33,7 @@ MyStackViewPage {
 
     MyDialogOkCancelPopup {
         id: chaperoneNewProfileDialog
-        dialogTitle: "Create New Profile"
+        dialogTitle: "创建新配置"
         dialogWidth: 800
         dialogHeight: 780
         dialogContentItem: ColumnLayout {
@@ -42,7 +42,7 @@ MyStackViewPage {
                 Layout.leftMargin: 16
                 Layout.rightMargin: 16
                 MyText {
-                    text: "Name: "
+                    text: "名称: "
                 }
                 MyTextField {
                     id: chaperoneNewProfileName
@@ -58,63 +58,63 @@ MyStackViewPage {
             }
             MyText {
                 Layout.topMargin: 24
-                text: "What to include:"
+                text: "包含内容:"
             }
             MyToggleButton {
                 id: chaperoneNewProfileIncludeGeometry
                 Layout.leftMargin: 32
-                text: "Chaperone Geometry"
+                text: "边界几何体"
             }
             MyToggleButton {
                 id: chaperoneNewProfileIncludeStyle
                 Layout.leftMargin: 32
-                text: "Chaperone Style"
+                text: "边界样式"
             }
             MyToggleButton {
                 id: chaperoneNewProfileIncludeBoundsColor
                 Layout.leftMargin: 32
-                text: "Chaperone Color"
+                text: "边界颜色"
             }
             MyToggleButton {
                 id: chaperoneNewProfileIncludeVisibility
                 Layout.leftMargin: 32
-                text: "Visibility Setting"
+                text: "可见度设置"
             }
             MyToggleButton {
                 id: chaperoneNewProfileIncludeFadeDistance
                 Layout.leftMargin: 32
-                text: "Fade Distance Setting"
+                text: "淡出距离设置"
             }
             MyToggleButton {
                 id: chaperoneNewProfileIncludeCenterMarker
                 Layout.leftMargin: 32
-                text: "Center Marker Setting"
+                text: "中心标记设置"
             }
             MyToggleButton {
                 id: chaperoneNewProfileIncludePlaySpaceMarker
                 Layout.leftMargin: 32
-                text: "Play Space Marker Setting"
+                text: "游戏空间标记设置"
             }
             MyToggleButton {
                 id: chaperoneNewProfileIncludeFloorBoundsMarker
                 Layout.leftMargin: 32
-                text: "Floor Bounds Always On Setting"
+                text: "始终显示地板边界"
             }
             MyToggleButton {
                 id: chaperoneNewProfileIncludeForceBounds
                 Layout.leftMargin: 32
-                text: "Force Bounds Setting"
+                text: "强制边界设置"
             }
             MyToggleButton {
                 id: chaperoneNewProfileIncludeProximityWarnings
                 Layout.leftMargin: 32
-                text: "Proximity Warning Settings"
+                text: "接近警告设置"
             }
         }
         onClosed: {
             if (okClicked) {
                 if (chaperoneNewProfileName.text == "") {
-                    chaperoneMessageDialog.showMessage("Create New Profile", "ERROR: Empty profile name.")
+                    chaperoneMessageDialog.showMessage("创建新配置", "错误: 配置名称为空")
                 } else if (!chaperoneNewProfileIncludeGeometry.checked
                             && !chaperoneNewProfileIncludeVisibility.checked
                             && !chaperoneNewProfileIncludeFadeDistance.checked
@@ -125,12 +125,12 @@ MyStackViewPage {
                             && !chaperoneNewProfileIncludeStyle.checked
                             && !chaperoneNewProfileIncludeForceBounds.checked
                             && !chaperoneNewProfileIncludeProximityWarnings.checked) {
-                    chaperoneMessageDialog.showMessage("Create New Profile", "ERROR: Nothing included.")
+                    chaperoneMessageDialog.showMessage("创建新配置", "错误: 未包含任何内容")
                 } else if ( Math.abs(MoveCenterTabController.offsetX) > 0.00000000001
                            || Math.abs(MoveCenterTabController.offsetY) > 0.00000000001
                            || Math.abs(MoveCenterTabController.offsetZ) > 0.00000000001
                            || MoveCenterTabController.rotation !== 0) {
-                    chaperoneMessageDialog.showMessage("Create New Profile", "ERROR: Offsets not reset.")
+                    chaperoneMessageDialog.showMessage("创建新配置", "错误: 偏移未重置")
                 } else {
                     ChaperoneTabController.addChaperoneProfile(chaperoneNewProfileName.text,
                                                                chaperoneNewProfileIncludeGeometry.checked,
@@ -174,7 +174,7 @@ MyStackViewPage {
                 spacing: 18
 
                 MyText {
-                    text: "Profile:"
+                    text: "配置:"
                 }
 
                 MyComboBox {
@@ -199,7 +199,7 @@ MyStackViewPage {
                     id: chaperoneApplyProfileButton
                     enabled: false
                     Layout.preferredWidth: 200
-                    text: "Apply"
+                    text: "应用"
                     onClicked: {
                         if (chaperoneProfileComboBox.currentIndex > 0) {
                             ChaperoneTabController.applyChaperoneProfile(chaperoneProfileComboBox.currentIndex - 1)
@@ -217,7 +217,7 @@ MyStackViewPage {
                     id: chaperoneDeleteProfileButton
                     enabled: false
                     Layout.preferredWidth: 200
-                    text: "Delete Profile"
+                    text: "删除配置"
                     onClicked: {
                         if (chaperoneProfileComboBox.currentIndex > 0) {
                             chaperoneDeleteProfileDialog.profileIndex = chaperoneProfileComboBox.currentIndex - 1
@@ -227,7 +227,7 @@ MyStackViewPage {
                 }
                 MyPushButton {
                     Layout.preferredWidth: 200
-                    text: "New Profile"
+                    text: "新建配置"
                     onClicked: {
                         chaperoneNewProfileDialog.openPopup()
                     }
@@ -239,7 +239,7 @@ MyStackViewPage {
             columns: 5
 
             MyText {
-                text: "Visibility:"
+                text: "可见度:"
                 Layout.rightMargin: 12
             }
 
@@ -309,7 +309,7 @@ MyStackViewPage {
             }
 
             MyText {
-                text: "Fade Distance:"
+                text: "淡出距离:"
                 Layout.rightMargin: 12
             }
 
@@ -372,7 +372,7 @@ MyStackViewPage {
             }
 
             MyText {
-                text: "Height:"
+                text: "高度:"
                 Layout.rightMargin: 12
             }
 
@@ -442,7 +442,7 @@ MyStackViewPage {
 
             MyToggleButton {
                 id: chaperoneCenterMarkerToggle
-                text: "Center Marker"
+                text: "中心标记"
                 Layout.fillWidth: false
                 onCheckedChanged: {
                     ChaperoneTabController.setCenterMarkerNew(this.checked, false)
@@ -451,7 +451,7 @@ MyStackViewPage {
 
             MyToggleButton {
                 id: chaperonePlaySpaceToggle
-                text: "Play Space"
+                text: "游戏空间"
                 onCheckedChanged: {
                     ChaperoneTabController.setPlaySpaceMarker(this.checked, false)
                 }
@@ -459,14 +459,14 @@ MyStackViewPage {
 
             MyToggleButton {
                 id: chaperoneForceBoundsToggle
-                text: "Force Bounds"
+                text: "强制边界"
                 onCheckedChanged: {
                     ChaperoneTabController.setForceBounds(this.checked, false)
                 }
             }
             MyToggleButton {
                 id: chaperoneDisableChaperone
-                text: "Disable Chaperone"
+                text: "禁用边界"
                 onCheckedChanged: {
                     ChaperoneTabController.setDisableChaperone(this.checked, false)
                     if(this.checked){
@@ -491,7 +491,7 @@ MyStackViewPage {
             Layout.fillWidth: true
             MyPushButton {
                 id: chaperoneWarningsConfigButton
-                text: "Proximity Warning Settings"
+                text: "接近警告设置"
                 Layout.preferredWidth: 350
                 onClicked: {
                     MyResources.playFocusChangedSound()
@@ -502,7 +502,7 @@ MyStackViewPage {
 
             MyPushButton {
                 id: chaperoneAdditionalButton
-                text: "Additional Chaperone Settings"
+                text: "附加边界设置"
                 Layout.preferredWidth: 400
 
                 onClicked: {
@@ -522,7 +522,7 @@ MyStackViewPage {
 
             MyPushButton {
                 id: chaperoneResetButton
-                text: "Reset"
+                text: "重置"
                 Layout.preferredWidth: 250
                 onClicked: {
                     ChaperoneTabController.reset()
@@ -533,7 +533,7 @@ MyStackViewPage {
 
             MyPushButton {
                 id: chaperoneReloadFromDiskButton
-                text: "Reload from Disk"
+                text: "从磁盘重新加载"
                 Layout.preferredWidth: 250
                 onClicked: {
                     ChaperoneTabController.reloadFromDisk()
